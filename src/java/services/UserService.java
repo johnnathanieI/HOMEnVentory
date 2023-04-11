@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
+import dataaccess.RoleDB;
 import dataaccess.UserDB;
 import java.util.List;
+import models.Role;
 import models.User;
 
 /**
@@ -29,25 +26,38 @@ public class UserService {
         return users;
     }
     
-    public void insert(String email, int activeStatus, 
-                       String fname, String lname, String password, int role) 
+    public void insert(String email, boolean activeStatus, 
+                       String fname, String lname, String password, int roleID) 
             throws Exception {
+        User user = new User(email, activeStatus, fname, lname, password);
+        RoleDB roleDB = new RoleDB();
+        Role role = roleDB.get(roleID);
+        user.setRole(role);
+        
         UserDB userDB = new UserDB();
-        userDB.insert(new User(email, activeStatus, fname, lname, password, role));
+        userDB.insert(user);
     }
     
-    public void update(String email, int activeStatus, 
-                       String fname, String lname, String password, int role) 
+    public void update(String email, boolean activeStatus, 
+                       String fname, String lname, String password, int roleID) 
             throws Exception {
         UserDB userDB = new UserDB();
-        userDB.update(new User(email, activeStatus, fname, lname, password, role));
+        User user = userDB.get(email);
+        user.setActive(activeStatus);
+        user.setFirstName(fname);
+        user.setLastName(lname);
+        user.setPassword(password);
+        
+        RoleDB roleDB = new RoleDB();
+        Role role = roleDB.get(roleID);
+        user.setRole(role);
+        
+        userDB.update(user);
     }
     
     public void delete(String email) throws Exception {
-        User user = new User();
-        user.setEmail(email);
-        
         UserDB userDB = new UserDB();
+        User user = userDB.get(email);
         userDB.delete(user);
     }
 }
