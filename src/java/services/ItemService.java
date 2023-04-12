@@ -5,10 +5,63 @@
  */
 package services;
 
+import dataaccess.CategoryDB;
+import dataaccess.ItemDB;
+import dataaccess.UserDB;
+import java.util.List;
+import models.Category;
+import models.Item;
+import models.User;
+
 /**
  *
  * @author johnn
  */
 public class ItemService {
     
+    public Item get(int itemID) throws Exception {
+        ItemDB itemDB = new ItemDB();
+        Item item = itemDB.get(itemID);
+        
+        return item;
+    }
+    
+    public List<Item> getAll() throws Exception {
+        ItemDB itemDB = new ItemDB();
+        List<Item> items = itemDB.getAll();
+        
+        return items;
+    }
+    
+    public void insert(int itemID, int categoryID, String itemName,
+            double price, String owner) throws Exception {
+        ItemDB itemDB = new ItemDB();
+        UserDB userDB = new UserDB();
+        CategoryDB categoryDB = new CategoryDB();
+    }
+    
+    public void update(int itemID, int categoryID, String itemName,
+            double price, String owner) throws Exception {
+        ItemDB itemDB = new ItemDB();
+        Item item = new Item(itemID, itemName, price);
+        
+        UserDB userDB = new UserDB();
+        User user = userDB.get(owner);
+        
+        item.setOwner(user);
+        
+        CategoryDB categoryDB = new CategoryDB();
+        Category category = categoryDB.get(categoryID);
+        
+        item.setCategory(category);
+        
+        itemDB.insert(item);
+    }
+    
+    public void delete(int itemID) throws Exception {
+        ItemDB itemDB = new ItemDB();
+        Item item = itemDB.get(itemID);
+        
+        itemDB.delete(item);
+    }
 }

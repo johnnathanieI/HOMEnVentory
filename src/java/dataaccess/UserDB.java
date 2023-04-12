@@ -1,9 +1,5 @@
 package dataaccess;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -20,7 +16,8 @@ public class UserDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            List<User> users = em.createNamedQuery("User.findAll", User.class).getResultList();
+            List<User> users = em.createNamedQuery("User.findAll", User.class)
+                    .getResultList();
             return users;
         } finally {
             em.close();
