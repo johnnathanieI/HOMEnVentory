@@ -1,6 +1,6 @@
 <%-- 
-    Document   : home
-    Created on : 12-Apr-2023, 5:46:13 AM
+    Document   : settings
+    Created on : 12-Apr-2023, 7:40:32 PM
     Author     : johnn
 --%>
 
@@ -12,9 +12,6 @@
         <title>HOME nVentory</title>
     </head>
     <body>
-        <h1>Welcome, ${email}</h1>
-        <form action="home" method="post">
-            <a href="login">Logout</a>
-        </form>
+        <h1>Hello World!</h1>
     </body>
 </html>
