@@ -41,7 +41,8 @@ public class RegisterSevlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String path = request.getContextPath();
-
+            
+            //Check if any field is empty, if true send back to register
             if (firstName == null || firstName.equals("") 
                     || lastName == null || lastName.equals("") 
                     || email == null || email.equals("") 
@@ -56,6 +57,7 @@ public class RegisterSevlet extends HttpServlet {
             UserService us = new UserService();
             
             try {
+                //If user exists already, return to login
                 if (us.get(email) != null) {
                     String message = "";
                     request.setAttribute("message", message);
@@ -63,6 +65,7 @@ public class RegisterSevlet extends HttpServlet {
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
                             .forward(request, response);
                 } else {
+                    //Otherwise, create new user
                     User user = us.register(firstName, lastName, email, password, path);
 
                     HttpSession session = request.getSession();

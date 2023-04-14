@@ -29,6 +29,10 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
         
+        if (action.equals("Logout")) {
+            response.sendRedirect("login");
+        }
     }
 }

@@ -21,6 +21,17 @@ public class RoleDB {
         }
     }
     
+    public Role get(String roleName) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            Role role = em.createNamedQuery("Role.findByRoleName", Role.class).setParameter("roleName", roleName).getSingleResult();
+            return role;
+        } finally {
+            em.close();
+        }
+    }
+    
     public List<Role> getAll() throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         

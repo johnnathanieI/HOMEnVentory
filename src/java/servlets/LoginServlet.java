@@ -39,8 +39,13 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
             String path = request.getContextPath();
 
-            if (email == null || email.equals("") || password == null || password.equals("")) {
-                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            if (password == null || password.equals("")) {
+                if (email == null || email.equals("")) {
+                    getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("email", email);
+                    getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                }
             }
 
             UserService us = new UserService();
@@ -51,10 +56,10 @@ public class LoginServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
                 return;
             }
-
+            
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
-
+            
             if (user.getRole().getRoleId() == 1) {
                 response.sendRedirect("admin");
             } else {

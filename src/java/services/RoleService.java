@@ -22,6 +22,13 @@ public class RoleService {
         return role;
     }
     
+    public Role get(String roleName) throws Exception {
+        RoleDB roleDB = new RoleDB();
+        Role role = roleDB.get(roleName);
+        
+        return role;
+    }
+    
     public List<Role> getAll() throws Exception {
         RoleDB roleDB = new RoleDB();
         List<Role> roles = roleDB.getAll();
