@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,9 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
         
+        boolean messageBoolean = false;
+        request.setAttribute("messageBoolean", messageBoolean);
+        
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(request, response);
     }
@@ -38,8 +43,11 @@ public class LoginServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String path = request.getContextPath();
+            String message = "Invalid email or password";
 
             if (password == null || password.equals("")) {
+                request.setAttribute("messageBoolean", true);
+                request.setAttribute("message", message);
                 if (email == null || email.equals("")) {
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
                 } else {
@@ -52,8 +60,18 @@ public class LoginServlet extends HttpServlet {
             User user = us.login(email, password, path);
 
             if (user == null) {
+                request.setAttribute("messageBoolean", true);
+                request.setAttribute("message", "This account does not exist");
                 request.setAttribute("email", email);
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                return;
+            } else if (!user.getActive()) {
+                request.setAttribute("messageBoolean", true);
+                request.setAttribute("message", "The account " + email + " is disabled");
+                Logger.getLogger(UserService.class.getName()).log(Level.FINE, "Disabled user tried to access their account {0}", email);
+                
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
+                        .forward(request, response);
                 return;
             }
             

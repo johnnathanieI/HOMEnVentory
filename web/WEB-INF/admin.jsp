@@ -49,7 +49,10 @@
                             </form>
                         </td>
                         <td>
-                            <input type="submit" name="action" value="Delete">
+                            <form method="post" action="admin">
+                                <input type="hidden" name="email" value="${user.email}">
+                                <input type="submit" name="action" value="Delete">
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

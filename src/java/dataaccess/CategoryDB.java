@@ -8,6 +8,7 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import models.Category;
 
 /**
@@ -24,6 +25,20 @@ public class CategoryDB {
             return category;
         } finally {
            em.close();
+        }
+    }
+    
+    public Category get(String categoryName) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            TypedQuery<Category> query = em.createNamedQuery("Category.findByCategoryName", Category.class);
+            query.setParameter("categoryName", categoryName);
+            
+            Category category = query.getSingleResult();
+            return category;
+        } finally {
+            em.close();
         }
     }
     

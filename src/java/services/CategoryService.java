@@ -21,6 +21,13 @@ public class CategoryService {
         return category;
     }
     
+    public Category get(String categoryName) throws Exception {
+        CategoryDB categoryDB = new CategoryDB();
+        Category category = categoryDB.get(categoryName);
+        
+        return category;
+    }
+    
     public List<Category> getAll() throws Exception {
         CategoryDB categoryDB = new CategoryDB();
         List<Category> categories = categoryDB.getAll();

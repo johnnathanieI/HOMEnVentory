@@ -119,11 +119,11 @@ public class AdminServlet extends HttpServlet {
             
         } else if (action.equals("Create New User")) {
             getServletContext().getRequestDispatcher("/WEB-INF/user_create.jsp")
-                .forward(request, response);
+                    .forward(request, response);
             
         } else if (action.equals("Create New Category")) {
             getServletContext().getRequestDispatcher("/WEB-INF/category_create.jsp")
-                .forward(request, response);
+                    .forward(request, response);
             
         } else if (action.equals("Delete")) {
             try {
