@@ -1,6 +1,6 @@
 <%-- 
-    Document   : category_create
-    Created on : 14-Apr-2023, 3:09:17 AM
+    Document   : item_create
+    Created on : 19-Apr-2023, 7:24:42 PM
     Author     : johnn
 --%>
 
@@ -13,30 +13,36 @@
         <title>HOME nVentory</title>
     </head>
     <body>
-        <h1>Create Category</h1>
+        <h1>HOME nVentory</h1>
+        <h2>Add Item</h2>
         <c:if test="${messageBoolean}">
             <p style="color: lightcoral;
                 border: 2px solid black;
                 padding: 2px;
                 display: inline-block">${message}</p>
         </c:if>
-        <form method="post" action="create">
+        <form action="create" method="post">
             <table border="1">
                 <tr>
-                    <th>ID</th>
-                    <th>Category Name</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Price</th>
                 </tr>
                 <tr>
-                    <td>
-                        <input type="textbox" name="id">
-                    </td>
                     <td>
                         <input type="textbox" name="categoryName">
                     </td>
+                    <td>
+                        <input type="textbox" name="itemName">
+                    </td>
+                    <td>
+                        <input type="textbox" name="price">
+                    </td>
                 </tr>
             </table><br>
-            <input type="hidden" name="role" value="admin">
-            <input type="hidden" name="type" value="category">
+            
+            <input type="hidden" name="role" value="user">
+            <input type="hidden" name="type" value="item">
             <input type="submit" name="action" value="Return">
             <input type="submit" name="action" value="Finish">
         </form>

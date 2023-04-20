@@ -78,6 +78,12 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
             
+            String firstName = user.getFirstName();
+            String lastName = user.getLastName();
+            
+            session.setAttribute("firstName", firstName);
+            session.setAttribute("lastName", lastName);
+            
             if (user.getRole().getRoleId() == 1) {
                 response.sendRedirect("admin");
             } else {

@@ -31,14 +31,8 @@ public class AdminServlet extends HttpServlet {
         
         String email = request.getParameter("email");
         
-        //Checks if edit was pressed which will retrieve the email for that user object and redirect to the edit page
-        if (email != null && !email.isEmpty()) {
-            displayUser(request, response);
-            
-        //Otherwise take admin to home view for admins which overlooks all user and category info
-        } else {
-            displayAll(request, response);
-        }
+        displayAll(request, response);
+        
     }
     
     private void displayAll(HttpServletRequest request, HttpServletResponse response) 
@@ -54,6 +48,7 @@ public class AdminServlet extends HttpServlet {
             categories = cs.getAll();
         } catch (Exception ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         request.setAttribute("categories", categories);

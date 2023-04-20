@@ -8,6 +8,7 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import models.Category;
 import models.Item;
 import models.User;
@@ -23,6 +24,20 @@ public class ItemDB {
         
         try {
             Item item = em.find(Item.class, itemID);
+            return item;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Item get(String itemName) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            TypedQuery<Item> query = em.createNamedQuery("Item.findByItemName", Item.class);
+            query.setParameter("itemName", itemName);
+            
+            Item item = query.getSingleResult();
             return item;
         } finally {
             em.close();

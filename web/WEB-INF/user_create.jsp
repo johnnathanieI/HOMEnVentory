@@ -23,12 +23,12 @@
             </c:if>
             <table border="1">
                 <tr>
-                    <td>Email</td>
-                    <td>Status</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Password</td>
-                    <td>Role</td>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Password</th>
+                    <th>Role</th>
                 </tr>
                 <tr>
                     <td>
@@ -48,8 +48,10 @@
                     </td>
                 </tr>
             </table><br>
+            <input type="hidden" name="role" value="admin">
             <input type="hidden" name="type" value="user">
             <input type="submit" name="action" value="Return">
+            <input type="submit" name="action" value="Finish">
         </form>
     </body>
 </html>

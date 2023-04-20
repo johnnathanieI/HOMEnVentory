@@ -15,18 +15,18 @@
     <body>
         <h1>HOME nVentory</h1>
         <h2>Admin View</h2>
-        <h3>Welcome, ${email}</h3>
+        <h3>Welcome, ${firstName}</h3>
         
         <form method="post" action="admin">
             <h4>Users</h4>
             <table border="1">
                 <tr>
-                    <td>Email</td>
-                    <td>Status</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Password</td>
-                    <td>Role</td>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Password</th>
+                    <th>Role</th>
                 </tr>
                 <c:forEach items="${users}" var="user">
                     <tr>
@@ -62,8 +62,8 @@
             <h4>Categories</h4>
             <table border="1">
                 <tr>
-                    <td>ID</td>
-                    <td>Name</td>
+                    <th>ID</th>
+                    <th>Name</th>
                 </tr>
                 <c:forEach items="${categories}" var="category">
                     <c:set var="categoryVal" value="${category.categoryId}"/>
