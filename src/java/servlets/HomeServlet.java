@@ -87,8 +87,12 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String itemId = request.getParameter("itemId");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
         
         ItemService is = new ItemService();
+        
+        HttpSession session = request.getSession();
         
         switch (action) {
             case "Logout":
@@ -104,6 +108,17 @@ public class HomeServlet extends HttpServlet {
                 }
             break;
             case "Add Item":
+                List<Category> categories = null;
+                
+                CategoryService cs = new CategoryService();
+                
+                try {
+                    categories = cs.getAll();
+                } catch (Exception ex) {
+                }
+                
+                request.setAttribute("categories", categories);
+                
                 getServletContext().getRequestDispatcher("/WEB-INF/item_create.jsp")
                         .forward(request, response);
             break;
@@ -111,6 +126,13 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("itemId", itemId);
                 
                 displayItem(request, response);
+            break;
+            case "Settings":
+                session.getAttribute("firstName");
+                session.getAttribute("lastName");
+                
+                getServletContext().getRequestDispatcher("/WEB-INF/user_settings.jsp")
+                        .forward(request, response);
             break;
         }
     }

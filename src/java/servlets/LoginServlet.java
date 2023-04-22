@@ -77,14 +77,19 @@ public class LoginServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
+            session.setAttribute("password", password);
             
+            //Already wrote it like this for most of my things and I'm too lazy to change lol
             String firstName = user.getFirstName();
             String lastName = user.getLastName();
+            int roleId = user.getRole().getRoleId();
             
             session.setAttribute("firstName", firstName);
             session.setAttribute("lastName", lastName);
+            session.setAttribute("roleId", roleId);
+          
             
-            if (user.getRole().getRoleId() == 1) {
+            if (roleId == 1) {
                 response.sendRedirect("admin");
             } else {
                 response.sendRedirect("home");

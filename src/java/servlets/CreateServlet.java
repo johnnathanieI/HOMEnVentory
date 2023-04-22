@@ -6,6 +6,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -47,7 +48,7 @@ public class CreateServlet extends HttpServlet {
                 String firstName = request.getParameter("firstName");
                 String lastName = request.getParameter("lastName");
                 String password = request.getParameter("password");
-                String roleId = request.getParameter("role");
+                String roleId = request.getParameter("roleId");
 
                 try {
                     UserService us = new UserService();
@@ -136,39 +137,33 @@ public class CreateServlet extends HttpServlet {
             } else if (type.equals("item")) {
                 HttpSession session = request.getSession();
 
-                String categoryName = request.getParameter("categoryName");
+                int categoryId = Integer.parseInt(request.getParameter("category"));
                 String itemName = request.getParameter("itemName");
                 String temp = request.getParameter("price");
                 String owner = (String) session.getAttribute("email");
+                
+                List<Category> categories = null;
 
                 try {
+                    double price = Double.parseDouble(temp);
+                    
                     CategoryService cs = new CategoryService();
                     ItemService is = new ItemService();
+                    
+                    categories = cs.getAll();
+                    
+                    request.setAttribute("categories", categories);
 
-                    Category category = cs.get(categoryName);
-
-                        if (category == null) {
-                            request.setAttribute("messageBoolean", true);
-                            message = "Error: This category does not exist";
-                            request.setAttribute("message", message);
-                            Logger.getLogger(UserService.class.getName()).log(Level.INFO, "User attempted to create an item under a non-existent category {0}", owner);
-
-                            getServletContext().getRequestDispatcher("/WEB-INF/item_create.jsp")
-                                    .forward(request, response);
-                            return;
-                        } else if (categoryName == null || categoryName.equals("") 
-                                || itemName == null || itemName.equals("")
+                        if (itemName == null || itemName.equals("")
                                 || temp == null || temp.equals("")) {
                             request.setAttribute("messageBoolean", true);
-                            message = "Error: Invalid category, name, or price";
+                            message = "Error: Invalid name, or price";
                             request.setAttribute("message", message);
-                            Logger.getLogger(UserService.class.getName()).log(Level.INFO, "User tried to add a new item with missing variables {0}", owner);
-
+                            Logger.getLogger(UserService.class.getName()).log(Level.INFO, "User tried to add a new item with invalid variables {0}", owner);
+                            
                             getServletContext().getRequestDispatcher("/WEB-INF/item_create.jsp")
                                     .forward(request, response);
-                            return;
                         } else {
-                                double price = Double.parseDouble(temp);
                                 if (price < 0) {
                                 request.setAttribute("messageBoolean", true);
                                 message = "Error: Price cannot be a negative";
@@ -177,16 +172,20 @@ public class CreateServlet extends HttpServlet {
 
                                 getServletContext().getRequestDispatcher("/WEB-INF/item_create.jsp")
                                         .forward(request, response);
-                                return;
                             } else {
-                                int categoryId = category.getCategoryId();
-
                                 is.insert(categoryId, itemName, price, owner);
                                 response.sendRedirect("home");
                             }
                         }
 
                 } catch (Exception ex) {
+                    request.setAttribute("messageBoolean", true);
+                    message = "Error: Invalid name, or price";
+                    request.setAttribute("message", message);
+                    Logger.getLogger(UserService.class.getName()).log(Level.INFO, "User tried to add a new item with invalid variables {0}", owner);
+                            
+                    getServletContext().getRequestDispatcher("/WEB-INF/item_create.jsp")
+                            .forward(request, response);
                 }
             }
         } else if (action.equals("Return")) {

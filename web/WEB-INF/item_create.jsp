@@ -30,7 +30,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="textbox" name="categoryName">
+                        <select name="category">
+                            <c:forEach items="${categories}" var="category">
+                                <option value="${category.categoryId}">${category.categoryName}</option>
+                            </c:forEach>
+                        </select>
                     </td>
                     <td>
                         <input type="textbox" name="itemName">

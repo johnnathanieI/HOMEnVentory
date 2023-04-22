@@ -44,6 +44,8 @@
                     </tr>
                 </c:forEach>
             </table><br>
+            <input type="hidden" name="firstName" value="${firstName}">
+            <input type="hidden" name="lastName" vaue="${lastName}">
             <input type="submit" name="action" value="Add Item"><br><br>
             <input type="submit" name="action" value="Settings">
             <input type="submit" name="action" value="Logout">

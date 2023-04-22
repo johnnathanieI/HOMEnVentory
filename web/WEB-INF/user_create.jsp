@@ -41,7 +41,7 @@
                     <td><input type="textbox" name="lastName"></td>
                     <td><input type="textbox" name="password"></td>
                     <td>
-                        <select name="role">
+                        <select name="roleId">
                             <option value="1">system admin</option>
                             <option value="2" selected>regular user</option>
                         </select>

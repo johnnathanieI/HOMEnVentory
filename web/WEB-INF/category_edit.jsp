@@ -4,6 +4,7 @@
     Author     : johnn
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,12 @@
     </head>
     <body>
         <h1>Edit Category</h1>
+        <c:if test="${messageBoolean}">
+            <p style="color: lightcoral;
+                border: 2px solid black;
+                padding: 2px;
+                display: inline-block">${message}</p>
+        </c:if>
         <form method="post" action="edit">
             <table border="1">
                 <tr>

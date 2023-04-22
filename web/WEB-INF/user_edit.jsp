@@ -14,6 +14,12 @@
     </head>
     <body>
         <h1>Edit User</h1>
+        <c:if test="${messageBoolean}">
+            <p style="color: lightcoral;
+                border: 2px solid black;
+                padding: 2px;
+                display: inline-block">${message}</p>
+        </c:if>
         <form method="post" action="edit">
             <table border="1">
                 <tr>
@@ -38,7 +44,7 @@
                     <td><input type="textbox" name="lastName" value="${user.lastName}"></td>
                     <td><input type="textbox" name="password" value="${user.password}"></td>
                     <td>
-                        <select name="role">
+                        <select name="roleId">
                             <option value="1">system admin</option>
                             <option value="2" selected>regular user</option>
                         </select>
