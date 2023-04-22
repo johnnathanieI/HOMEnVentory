@@ -14,7 +14,7 @@ import models.User;
  */
 public class UserService {
     
-    public User login(String email, String password, String path) {
+    public User login(String email, String password) {
         UserDB userDB = new UserDB();
         
         try {

@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet {
          
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String path = request.getContextPath();
             String message = "Invalid email or password";
 
             if (password == null || password.equals("")) {
@@ -57,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             UserService us = new UserService();
-            User user = us.login(email, password, path);
+            User user = us.login(email, password);
 
             if (user == null) {
                 request.setAttribute("messageBoolean", true);

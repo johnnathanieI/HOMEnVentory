@@ -33,6 +33,11 @@ public class AdminServlet extends HttpServlet {
         
         String email = (String) session.getAttribute("email");
         
+        if (email == null) {
+            response.sendRedirect("login");
+            return;
+        }
+        
         displayAll(request, response);
         
     }

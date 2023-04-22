@@ -26,7 +26,14 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         
+        String email = (String) session.getAttribute("email");
+        
+        if (email == null) {
+            response.sendRedirect("login");
+            return;
+        }
     }
 
     @Override

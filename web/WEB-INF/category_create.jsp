@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HOME nVentory</title>
+        <title>HOME nVentory | Create Category</title>
     </head>
     <body>
         <h1>Create Category</h1>
